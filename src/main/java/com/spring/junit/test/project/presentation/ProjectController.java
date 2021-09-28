@@ -23,7 +23,7 @@ import java.net.URI;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
-@RequestMapping(value = "/api/v1/project", produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/v1/project", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class ProjectController {
 
     private final ProjectService projectService;

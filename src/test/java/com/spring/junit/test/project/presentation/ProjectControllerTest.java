@@ -33,6 +33,7 @@ public class ProjectControllerTest {
     ObjectMapper objectMapper;
 
     @Test
+    @TestDescription("프로젝트 생성 성공 테스트")
     public void createProject() throws Exception{
         ProjectDto projectDto = ProjectDto.builder()
                                 .name("프로젝트")
@@ -47,14 +48,14 @@ public class ProjectControllerTest {
 
         ResultActions resultActions = mockMvc.perform(post("/api/v1/project")
 //                                                    .header(HttpHeaders.AUTHORIZATION, "")
-                                                    .contentType(MediaType.APPLICATION_JSON_VALUE)
-                                                    .accept(MediaType.APPLICATION_JSON_VALUE)
+                                                    .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                                                    .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                                                     .content(objectMapper.writeValueAsString(projectDto))
                                         )
                                             .andDo(print()) // 요청과 응답 콘솔에서 확인
                                             .andExpect(status().isCreated())
                                             .andExpect(header().exists(HttpHeaders.LOCATION))
-                                            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+                                            .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
                                             .andExpect(jsonPath("id").exists())     // id 값있는지 확인
                                             .andExpect(jsonPath("name").value("프로젝트"))   // name 값 있는지 확인
 
@@ -78,13 +79,13 @@ public class ProjectControllerTest {
 
         ResultActions resultActions = mockMvc.perform(post("/api/v1/project")
 //                                                    .header(HttpHeaders.AUTHORIZATION, "")
-                        .contentType(MediaType.APPLICATION_JSON_VALUE)
-                        .accept(MediaType.APPLICATION_JSON_VALUE)
+                        .contentType(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                        .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
                         .content(objectMapper.writeValueAsString(projectDto))
         )
                 .andDo(print()) // 요청과 응답 콘솔에서 확인
                 .andExpect(status().isBadRequest()) // BadRequest 인지 확인
-                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_UTF8_VALUE))
                 .andExpect(jsonPath("[0].objectName").exists())
                 .andExpect(jsonPath("[0].defaultMessage").exists())
                 .andExpect(jsonPath("[0].code").exists())
