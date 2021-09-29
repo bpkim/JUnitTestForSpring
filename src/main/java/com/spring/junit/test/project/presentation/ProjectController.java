@@ -68,7 +68,7 @@ public class ProjectController {
         return ResponseEntity.created(createUri).body(resource);
     }
 
-    
+
     @GetMapping
     public ResponseEntity getAllProject(Pageable pageable, PagedResourcesAssembler<Project> assembler) {
         Page<Project> projectPage = projectService.getAllProject(pageable);
