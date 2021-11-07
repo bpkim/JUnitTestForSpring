@@ -72,3 +72,7 @@ jobs:
         YEAR: "${{ steps.build-end-time.outputs.year }}"
         DAY: "${{ steps.build-end-time.outputs.day }}"
       run: echo Build End Time $TIME $R_TIME $F_TIME $YEAR $DAY
+    # Code Deploy
+    - name: Make zip file #1
+      run: zip -qq -r .//$GITHUB_SHA.zip
+      shell: bash
