@@ -86,10 +86,10 @@ jobs:
         aws-regin: ap-northeast-2
 
     - name: Upload to S3 #3
-        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://codeDeployTest/$GITHUB_SHA.zip
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://CodeDeployTest/$GITHUB_SHA.zip
 
     - name: Code Deploy #4
         run: aws deploy create-deployment --application-name CodeDeployTest
           --deployment-config-name CodeDeployDefault.OneAtATime
           --deployment-group-name dev
-          --s3-location bucket=codeDeployTest,bundleType=zip,key=$GITHUB_SHA.zip
+          --s3-location bucket=CodeDeployTest,bundleType=zip,key=$GITHUB_SHA.zip
