@@ -58,6 +58,8 @@ public class ProjectController {
         URI createUri = selfLinkBuilder.toUri();
         ProjectEntityModel resource = new ProjectEntityModel(newProject);
 
+
+        
         // 조회 링크
         resource.add(linkTo(ProjectController.class).withRel("query-project"));
         // 업데이트
