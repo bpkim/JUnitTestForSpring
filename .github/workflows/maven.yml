@@ -94,3 +94,4 @@ jobs:
       --deployment-config-name CodeDeployDefault.OneAtATime
       --deployment-group-name dev
       --s3-location bucket=code-deploy-test-s3,bundleType=zip,key=$GITHUB_SHA.zip
+      
