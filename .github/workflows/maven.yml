@@ -91,7 +91,6 @@ jobs:
     - name: Code Deploy #4
       run: aws deploy create-deployment
       --application-name CodeDeployTest
-      --deployment-config-name CodeDeployDefault.OneAtATime
+      --deployment-config-name CodeDeployDefault.AllAtOnce
       --deployment-group-name dev
       --s3-location bucket=code-deploy-test-s3,bundleType=zip,key=$GITHUB_SHA.zip
-      
