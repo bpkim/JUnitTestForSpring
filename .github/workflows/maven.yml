@@ -76,7 +76,7 @@ jobs:
     - name: Make zip file #1
       env:
         TIME: "${{ steps.build-end-time.outputs.time }}"
-      run: zip -qq -r ./JUnitTestForSpring_$TIME.zip .
+      run: zip -qq -r ./$GITHUB_SHA.zip .
       shell: bash
 
     - name: Configure AWS credentials #2
@@ -87,7 +87,7 @@ jobs:
         aws-region: ap-northeast-2
 
     - name: Upload to S3 #3
-      run: aws s3 cp --region ap-northeast-2 ./JUnitTestForSpring_$TIME.zip s3://code-deploy-test-s3/JUnitTestForSpring_$TIME.zip
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://code-deploy-test-s3/$GITHUB_SHA.zip
 
     - name: Code Deploy #4
-      run: aws deploy create-deployment --application-name CodeDeployTest --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=code-deploy-test-s3,bundleType=zip,key=JUnitTestForSpring_$TIME.zip
+      run: aws deploy create-deployment --application-name CodeDeployTest --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name dev --s3-location bucket=code-deploy-test-s3,bundleType=zip,key=$GITHUB_SHA.zip
