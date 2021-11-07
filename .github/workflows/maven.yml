@@ -72,3 +72,24 @@ jobs:
         YEAR: "${{ steps.build-end-time.outputs.year }}"
         DAY: "${{ steps.build-end-time.outputs.day }}"
       run: echo Build End Time $TIME $R_TIME $F_TIME $YEAR $DAY
+
+    # Code Deploy
+    - name: Make zip file #1
+      run: zip -qq -r .//$GITHUB_SHA.zip
+      shell: bash
+
+    - name: Configure AWS credentials #2
+      users: aws-actions/configurre-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.ACCESS_KEY}}
+        aws-scret-access-key-id: ${{ secrets.ACCESS_KEY_SECRET}}
+        aws-regin: ap-northeast-2
+
+    - name: Upload to S3 #3
+        run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://codeDeployTest/$GITHUB_SHA.zip
+
+    - name: Code Deploy #4
+        run: aws deploy create-deployment --application-name CodeDeployTest
+          --deployment-config-name CodeDeployDefault.OneAtATime
+          --deployment-group-name dev
+          --s3-location bucket=codeDeployTest,bundleType=zip,key=$GITHUB_SHA.zip
