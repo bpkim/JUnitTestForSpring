@@ -86,7 +86,7 @@ jobs:
         aws-regin: ap-northeast-2
 
     - name: Upload to S3 #3
-      run: aws deploy push --application-name EC2-S3-Deploy --description "This is a revision for the application airbnb_App" --s3-location s3://code-deploy-test-s3/$GITHUB_SHA.zip --source .
+      run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://code-deploy-test-s3/$GITHUB_SHA.zip
 
     - name: Code Deploy #4
       run: aws deploy create-deployment --application-name CodeDeployTest
