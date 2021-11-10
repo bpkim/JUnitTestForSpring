@@ -4,8 +4,8 @@ REPOSITORY=/home/ubuntu/codedeploy-test
 cd $REPOSITORY
 
 APP_NAME=JunitTestApplication
-JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep '.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
+JAR_NAME=junittest-0.0.1-SNAPSHOT.jar
+JAR_PATH=$REPOSITORY/target/$JAR_NAME
 
 CURRENT_PID=$(pgrep -f $APP_NAME)
 
@@ -20,4 +20,3 @@ fi
 
 echo "> $JAR_PATH 배포"
 nohup java -jar $JAR_PATH > /dev/null 2> /dev/null < /dev/null &
-
